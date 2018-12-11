@@ -26,7 +26,7 @@ const config = {
 };
 
 const assistant = new GoogleAssistant(config.auth);
-
+var color = '';
 setInterval(checkDrive, 10000)
 
 
@@ -41,7 +41,7 @@ function checkDrive(){
             resp.forEach(file=>{
                 // var color = resp[0].split('.')[0]
                 var split = file.split('.')
-                if(split[1] == 'color'){
+                if(split[1] == 'color' && split[0] != color){
                     var color = split[0];
                     var message = `Turn the living room lights ${color}`;
                     console.log('conversating', message);
