@@ -27,21 +27,25 @@ const config = {
 
 const assistant = new GoogleAssistant(config.auth);
 
+setInterval(checkDrive, 10000)
+
 
 // start the conversation
-var color_path = '/media/sasha/0';
-fs.readdir(color_path, (err, resp)=>{
-    if(err) console.log('err', err);
+function checkDrive(){
+    var color_path = '/media/sasha/0';
+    fs.readdir(color_path, (err, resp)=>{
+        if(err) console.log('err', err);
 
-    console.log('resp', resp)
-    if(resp.length && resp.length > 0){
-        var color = resp[0].split('.')[0]
-        var message = `Turn the living room lights ${color}`;
-        console.log('conversating', message);
-        config.conversation.textQuery = message;
-        assistant.start(config.conversation)
-    }
-})
+        console.log('resp', resp)
+        if(resp.length && resp.length > 0){
+            var color = resp[0].split('.')[0]
+            var message = `Turn the living room lights ${color}`;
+            console.log('conversating', message);
+            config.conversation.textQuery = message;
+            assistant.start(config.conversation)
+        }
+    })
+}
 
 // // starts a new conversation with the assistant
 const startConversation = (conversation) => {
