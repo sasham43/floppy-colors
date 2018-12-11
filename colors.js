@@ -38,11 +38,17 @@ function checkDrive(){
 
         console.log('resp', resp)
         if(resp.length && resp.length > 0){
-            var color = resp[0].split('.')[0]
-            var message = `Turn the living room lights ${color}`;
-            console.log('conversating', message);
-            config.conversation.textQuery = message;
-            assistant.start(config.conversation)
+            resp.forEach(file=>{
+                // var color = resp[0].split('.')[0]
+                var split = file.split('.')
+                if(split[1] == 'color'){
+                    var color = split[0];
+                    var message = `Turn the living room lights ${color}`;
+                    console.log('conversating', message);
+                    config.conversation.textQuery = message;
+                    assistant.start(config.conversation)
+                }
+            })
         }
     })
 }
