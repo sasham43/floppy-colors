@@ -37,7 +37,7 @@ function checkDrive(){
         if(err) console.log('err', err);
 
         console.log('resp', resp)
-        if(resp.length && resp.length > 0){
+        if(resp && resp.length && resp.length > 0){
             resp.forEach(file=>{
                 // var color = resp[0].split('.')[0]
                 var split = file.split('.')
