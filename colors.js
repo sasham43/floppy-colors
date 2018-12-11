@@ -28,52 +28,59 @@ const assistant = new GoogleAssistant(config.auth);
 
 
 // start the conversation
-var message = 'Turn the living room lights red';
-console.log('conversating', message);
-config.conversation.textQuery = message;
-assistant.start(config.conversation, (conversation) => {
-    conversation
-      .on('response', (text) => {
-          console.log('Assistant Response:', text)
-          // d.resolve(text);
-          // res.status(200).send(text);
-      })
-      .on('ended', (error, continueConversation) => {
-        // once the conversation is ended, see if we need to follow up
-        if (error) console.log('Conversation Ended Error:', error);
-        else if (continueConversation) assistant.start();
-        else console.log('Conversation Complete', continueConversation);
-      })
-      .on('error', (error) => {
-          console.log('assistant error', error);
-          // d.reject(err);
-          // next(err);
-      });
-})
+
+// function startConversation(){
+//     var message = 'Turn the living room lights red';
+//     console.log('conversating', message);
+//     config.conversation.textQuery = message;
+//     assistant.start(config.conversation, (conversation) => {
+//         conversation
+//           .on('response', (text) => {
+//               console.log('Assistant Response:', text)
+//               // d.resolve(text);
+//               // res.status(200).send(text);
+//           })
+//           .on('ended', (error, continueConversation) => {
+//             // once the conversation is ended, see if we need to follow up
+//             if (error) console.log('Conversation Ended Error:', error);
+//             else if (continueConversation) assistant.start();
+//             else console.log('Conversation Complete', continueConversation);
+//           })
+//           .on('error', (error) => {
+//               console.log('assistant error', error);
+//               // d.reject(err);
+//               // next(err);
+//           });
+//     })
+// }
 
 // // starts a new conversation with the assistant
-// const startConversation = (conversation) => {
-//   conversation
-//     .on('response', (text) => {
-//         console.log('Assistant Response:', text)
-//         d.resolve(text);
-//     })
-//     .on('ended', (error, continueConversation) => {
-//       // once the conversation is ended, see if we need to follow up
-//       if (error) console.log('Conversation Ended Error:', error);
-//       else if (continueConversation) assistant.start();
-//       else console.log('Conversation Complete');
-//     })
-//     .on('error', (error) => {
-//         console.log('assistant error', error);
-//         d.reject(err);
-//     });
-// };
+const startConversation = (conversation) => {
+  conversation
+    .on('response', (text) => {
+        console.log('Assistant Response:', text)
+    })
+    .on('ended', (error, continueConversation) => {
+      // once the conversation is ended, see if we need to follow up
+      if (error) console.log('Conversation Ended Error:', error);
+      else if (continueConversation) assistant.start();
+      else console.log('Conversation Complete');
+    })
+    .on('error', (error) => {
+        console.log('assistant error', error);
+    });
+};
 
 // will start a conversation and wait for audio data
 // as soon as it's ready
-// assistant
-//   .on('ready', () => assistant.start())
-//   .on('started', startConversation);
+assistant
+  .on('ready', () => {
+      var color = 'neon orange';
+      var message = `Turn the living room lights ${color}`;
+      console.log('conversating', message);
+      config.conversation.textQuery = message;
+      assistant.start(config.conversation)
+  })
+  .on('started', startConversation);
 
-module.exports = router;
+// module.exports = router;
